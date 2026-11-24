@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-visual"
+    />
+    <title>ลอยกระทง ♡ Loy Krathong</title>
+    <meta name="description" content="คืนลอยกระทงของเรา — แตะฟ้าจุดพลุ แตะน้ำลอยดอกบัว ปล่อยโคมอธิษฐานถึงดวงจันทร์ 🌕🏮" />
+    <meta name="theme-color" content="#03040c" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ลอยกระทง" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="✨ สุขสันต์วันลอยกระทงนะ ✨" />
+    <meta property="og:description" content="@jvstjahh ♥ @_f1rst.suwann — ลอยกระทงด้วยกันใต้แสงจันทร์ 🌕🏮" />
+    <meta property="og:image" content="/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="preload" href="./fonts/mali-thai-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/mali-thai-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <canvas id="scene" role="img" aria-label="ฉากลอยกระทงยามค่ำคืน มีพระจันทร์เต็มดวง โคมลอย และกระทงสองใบ"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <header class="hud hud-top">
+        <span class="hud-spacer" aria-hidden="true"></span>
+        <div class="title glass">
+          <span class="title-text">✨ สุขสันต์วันลอยกระทงนะ ✨</span>
+          <span class="subtitle">คืนวันเพ็ญ เดือนสิบสอง · Loy Krathong</span>
+        </div>
+        <button id="btnClean" class="chip glass" type="button" aria-pressed="false" aria-label="ซ่อนปุ่ม (Clean View)">
+          <span class="chip-ico" aria-hidden="true">👁️</span>
+          <span class="chip-text">ซ่อนปุ่ม<small>(Clean View)</small></span>
+        </button>
+      </header>
+
+      <nav class="hud hud-bottom glass" aria-label="ปุ่มควบคุม">
+        <button id="btnTogether" class="pill-btn" type="button">
+          <span class="ico" aria-hidden="true">💖</span><span class="lbl">ลอยคู่กัน</span>
+        </button>
+        <button id="btnWish" class="pill-btn" type="button">
+          <span class="ico" aria-hidden="true">🏮</span><span class="lbl">ปล่อยโคมอธิษฐาน</span>
+        </button>
+        <button id="btnMusic" class="pill-btn" type="button" aria-pressed="false">
+          <span class="ico" aria-hidden="true">🎵</span><span class="lbl">เพลง</span>
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </nav>
+
+      <button id="btnRestore" type="button" aria-label="แสดงปุ่มอีกครั้ง"><span aria-hidden="true">👁️</span></button>
+      <div id="toast" role="status" aria-live="polite"></div>
+
+      <div id="sheetBackdrop" aria-hidden="true"></div>
+      <section id="wishSheet" class="sheet glass" role="dialog" aria-modal="true" aria-labelledby="wishTitle" aria-hidden="true">
+        <div class="grabber" aria-hidden="true"></div>
+        <h2 id="wishTitle">🏮 อธิษฐานกับโคมลอย</h2>
+        <p class="sheet-hint">เขียนคำอธิษฐานของเธอ แล้วปล่อยให้โคมพาไปหาดวงจันทร์ 🌕</p>
+        <textarea id="wishText" maxlength="80" rows="3" placeholder="ขอให้เราได้ลอยกระทงด้วยกันแบบนี้ทุกปีนะ ♡" enterkeyhint="send"></textarea>
+        <div class="sheet-row">
+          <div class="chips">
+            <button type="button" class="chip-wish" data-wish="ขอให้เรารักกันแบบนี้ตลอดไปนะ 💗">💗 รักกันตลอดไป</button>
+            <button type="button" class="chip-wish" data-wish="ขอให้เธอมีความสุขมากๆ ทุกวันเลย 🌷">🌷 ให้เธอมีความสุข</button>
+            <button type="button" class="chip-wish" data-wish="ขอให้ปีหน้าได้มาลอยกระทงด้วยกันอีก 🌕">🌕 ปีหน้าด้วยกันอีก</button>
+          </div>
+          <span id="wishCount" class="count">0/80</span>
+        </div>
+        <div class="sheet-actions">
+          <button id="wishCancel" class="btn ghost" type="button">ไว้ก่อนนะ</button>
+          <button id="wishSend" class="btn primary" type="button">ปล่อยโคม ✨</button>
+        </div>
+      </section>
+
+      <div id="intro" class="intro" role="button" tabindex="0" aria-label="แตะเพื่อเริ่ม">
+        <div class="intro-card">
+          <p class="intro-kicker">คืนวันเพ็ญ เดือนสิบสอง</p>
+          <h1 class="intro-title">ลอยกระทง</h1>
+          <p class="intro-names"><span id="introHer">@jvstjahh</span> <b>♥</b> <span id="introHim">@_f1rst.suwann</span></p>
+          <span id="introStart" class="intro-cta" tabindex="-1">แตะเพื่อเริ่ม ✨</span>
+          <ul class="intro-tips">
+            <li><span>🎆</span>แตะฟ้า จุดพลุ</li>
+            <li><span>🪷</span>แตะน้ำ ลอยดอกบัว</li>
+            <li><span>✨</span>ลากนิ้ว โปรยละอองดาว</li>
+          </ul>
+          <p class="intro-sound">🎧 เปิดเสียงไว้นะ</p>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
